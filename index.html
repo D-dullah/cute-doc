@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thoughtful Valentine's Card</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Montserrat:wght@500&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            overflow: hidden;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 380px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateY(30px) rotateX(20deg);
+            opacity: 0;
+            animation: slideIn 1.2s ease-out forwards;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(0) rotateX(0) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0) rotateX(0);
+                opacity: 1;
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #90caf9, #64b5f6);
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1976d2;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #64b5f6;
+            animation: lineGrow 1.5s ease-out forwards 1s;
+        }
+
+        @keyframes lineGrow {
+            to { width: 60%; }
+        }
+
+        .message {
+            color: #37474f;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeSlideUp 1s ease-out 0.8s forwards;
+        }
+
+        @keyframes fadeSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signature {
+            text-align: right;
+            color: #1976d2;
+            font-style: italic;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateX(20px);
+            animation: fadeSlideLeft 1s ease-out 1.6s forwards;
+        }
+
+        @keyframes fadeSlideLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0;
+            animation: fadeRotate 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeRotate {
+            from {
+                opacity: 0;
+                transform: rotate(-45deg) scale(0.5);
+            }
+            to {
+                opacity: 0.2;
+                transform: rotate(0) scale(1);
+            }
+        }
+
+        .flower::before {
+            content: '🌸';
+            font-size: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .top-left { top: 20px; left: 20px; animation-delay: 2s; }
+        .top-right { top: 20px; right: 20px; animation-delay: 2.2s; }
+        .bottom-left { bottom: 20px; left: 20px; animation-delay: 2.4s; }
+        .bottom-right { bottom: 20px; right: 20px; animation-delay: 2.6s; }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating {
+            position: absolute;
+            animation: floatUpAndSpin 15s linear infinite;
+            opacity: 0.1;
+            font-size: 16px;
+        }
+
+        @keyframes floatUpAndSpin {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(720deg) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { transform: scale(0.3); opacity: 0.2; }
+            50% { transform: scale(1); opacity: 0.7; }
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(144, 202, 249, 0.2), transparent 70%);
+            top: 0;
+            left: 0;
+            opacity: 0;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements" id="floatingContainer"></div>
+
+    <div class="card" id="card">
+        <div class="glow"></div>
+        <div class="flower top-left"></div>
+        <div class="flower top-right"></div>
+        <div class="flower bottom-left"></div>
+        <div class="flower bottom-right"></div>
+
+        <h1>Happy Valentine's Day!</h1>
+        
+        <div class="message">
+            I wanted to take a moment to wish you a wonderful Valentine's Day! You've been an important part of my journey, and I'm grateful for all the memories we've shared. I hope this day brings you joy, laughter, and all the happiness you deserve.
+            
+            May your day be filled with warmth and beautiful moments. Thank you for being you!
+        </div>
+        
+        <div class="signature">
+            With warm wishes,<br>
+            Dullah
+        </div>
+    </div>
+
+    <script>
+        // Interactive card tilt effect
+        const card = document.getElementById('card');
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            card.style.transform = `perspective(1000px) rotateY(${x * 5 - 2.5}deg) rotateX(${y * -5 + 2.5}deg)`;
+        });
+
+        // Create floating elements
+        const floatingContainer = document.getElementById('floatingContainer');
+        const elements = ['✨', '🌸', '❄️', '⭐'];
+        
+        for (let i = 0; i < 20; i++) {
+            const element = document.createElement('div');
+            element.className = 'floating';
+            element.textContent = elements[Math.floor(Math.random() * elements.length)];
+            element.style.left = `${Math.random() * 100}%`;
+            element.style.animationDelay = `${Math.random() * 10}s`;
+            element.style.animationDuration = `${15 + Math.random() * 10}s`;
+            floatingContainer.appendChild(element);
+        }
+
+        // Add sparkles
+        for (let i = 0; i < 20; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = `${Math.random() * 100}%`;
+            sparkle.style.top = `${Math.random() * 100}%`;
+            sparkle.style.animationDelay = `${Math.random() * 3}s`;
+            document.body.appendChild(sparkle);
+        }
+
+        // Add hover effect to flowers
+        document.querySelectorAll('.flower').forEach(flower => {
+            flower.addEventListener('mouseover', () => {
+                flower.style.transform = 'scale(1.2) rotate(15deg)';
+                flower.style.opacity = '0.4';
+            });
+            flower.addEventListener('mouseout', () => {
+                flower.style.transform = 'scale(1) rotate(0deg)';
+                flower.style.opacity = '0.2';
+            });
+        });
+    </script>
+</body>
+</html>
